@@ -1,0 +1,6 @@
+bin/
+parts/
+develop-eggs/
+var/
+Paste*
+*.pyc

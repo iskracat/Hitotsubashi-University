@@ -1,0 +1,24 @@
+Metadata-Version: 1.0
+Name: iskra.audiofile
+Version: 1.0
+Summary: Audio Dexterity mediaelementjs player
+Home-page: http://svn.plone.org/svn/collective/
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: gpl
+Description: .. contents::
+        
+        Introduction
+        ============
+        
+        
+        iskra.audiofile
+        ===============
+        
+        1.0
+        ---
+        
+        * Create content type and views [ramon]
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python

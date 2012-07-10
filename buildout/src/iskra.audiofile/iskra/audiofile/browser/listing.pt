@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="iskra.audiofile">
+      <head>
+        <title></title>
+        
+        
+      </head>
+<body>
+         
+<div metal:fill-slot="content-core">
+<metal:main-macro define-macro="content-core">
+  <tal:block define="audios view/getAudioFiles">
+    <div class="row" tal:repeat="audio audios">
+      <div class="cell width-7 position-0">
+        <a href="" tal:attributes="href string:${audio/getURL}">
+          <h2 tal:content="audio/Title">
+            TITLE
+          </h2>
+        </a>
+        <p tal:content="audio/Description">Descripcion</p>
+        <audio controls >
+          <source src="" tal:attributes="src string:${audio/getURL}/@@display-file/audiofile" type="audio/mpeg"/>
+          <tal:block condition="audio/audiofileogg">
+            <source src="" tal:attributes="src string:${context/absolute_url}/@@display-file/audiofileogg" type="audio/ogg"/>
+          </tal:block>
+          <object width="300" height="40" type="application/x-shockwave-flash" data="++resource++iskra.audiofile/flashmediaelement.swf" tal:define="audiof audio/audiofile">
+            <param name="movie" value="++resource++iskra.audiofile/flashmediaelement.swf" />
+            <param name="flashvars" value="" tal:attributes="value string:controls=true&file=${context/absolute_url}/@@download/audiofile/${audiof/filename}" />
+          </object>
+        </audio>
+      </div>
+      <div class="cell width-7 position-8">
+        <img src="" style="width: 100%" tal:attributes="src string:${audio/getURL}/@@images/image"/>
+      </div>
+    </div>
+    <script>
+        $('audio').mediaelementplayer();
+    </script>
+
+</tal:block>
+
+</metal:main-macro>
+</div>
+</body>
+</html>

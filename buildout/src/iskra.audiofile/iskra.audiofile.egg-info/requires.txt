@@ -1,0 +1,7 @@
+setuptools
+plone.app.dexterity
+plone.namedfile
+plone.app.multilingual
+plone.multilingualbehavior
+hachoir_parser
+hachoir_metadata

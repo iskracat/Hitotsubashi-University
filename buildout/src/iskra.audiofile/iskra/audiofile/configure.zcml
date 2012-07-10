@@ -1,0 +1,35 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="iskra.audiofile">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <grok:grok package="." />
+
+  <include package=".browser" />
+
+  <plone:behavior
+    title="MediaElement Playable"
+    provides=".interfaces.IMediaElementJSPlayable"
+    />
+
+  <adapter 
+    for=".interfaces.IMediaElementJSPlayable"
+    provides=".interfaces.IMediaInfo"
+    factory=".media.VideoInfo" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="iskra.audiofile"
+      directory="profiles/default"
+      description="Installs the iskra.audiofile package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <!-- -*- extra stuff goes here -*- -->
+  
+</configure>

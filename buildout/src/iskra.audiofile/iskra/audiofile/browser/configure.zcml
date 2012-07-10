@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="iskra.audiofile">
+
+    <browser:resourceDirectory
+        name="iskra.audiofile"
+        directory="mediaelementjs"
+        />
+
+
+    <browser:page
+      name="audio_listing"
+      for="plone.app.folder.folder.IATUnifiedFolder"
+      class=".listing.AudioList"
+      permission="zope2.View"
+      />
+
+</configure>

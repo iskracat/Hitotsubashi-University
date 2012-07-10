@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+<metal:javascriptslot fill-slot="javascript_head_slot">
+    
+</metal:javascriptslot>
+
+<metal:main fill-slot="main" tal:define="video view/video">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading" tal:content="context/title"> 
+          Title
+        </h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+        <div class="row">
+          <div class="cell width-8 position-0">
+        <p class="documentDescription" tal:content="context/description">
+        </p>
+        <audio controls autoplay>
+          <source src="" tal:attributes="src string:${context/absolute_url}/@@display-file/audiofile" type="audio/mpeg"/>
+          <tal:block condition="context/audiofileogg">
+            <source src="" tal:attributes="src string:${context/absolute_url}/@@display-file/audiofileogg" type="audio/ogg"/>
+          </tal:block>
+          <object width="300" height="40" type="application/x-shockwave-flash" data="++resource++iskra.audiofile/flashmediaelement.swf" tal:define="audiof context/audiofile">
+            <param name="movie" value="++resource++iskra.audiofile/flashmediaelement.swf" />
+            <param name="flashvars" value="" tal:attributes="value string:controls=true&file=${context/absolute_url}/@@download/audiofile/${audiof/filename}" />
+          </object>
+
+        </audio>
+        <p class="documentByLine" tal:content="video/duration"></p>
+        <script>
+        $('audio').mediaelementplayer();
+        </script>
+      </div>
+      <div class="cell width-8 position-8">
+        <img src="" tal:attributes="src string:${context/absolute_url}/@@images/image"/>
+      </div>
+    </div>
+        <div metal:use-macro="here/document_relateditems/macros/relatedItems">
+            show related items if they exist
+        </div>
+    
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+</metal:main>
+</body>
+</html>

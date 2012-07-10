@@ -1,0 +1,7 @@
+iskra.audiofile
+===============
+
+1.0
+---
+
+* Create content type and views [ramon]
