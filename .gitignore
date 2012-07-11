@@ -4,3 +4,7 @@ develop-eggs/
 var/
 Paste*
 *.pyc
+dist
+build
+.DS_Store
+*.egg-info

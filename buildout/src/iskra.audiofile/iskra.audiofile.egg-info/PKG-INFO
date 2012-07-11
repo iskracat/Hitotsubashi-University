@@ -2,14 +2,37 @@ Metadata-Version: 1.0
 Name: iskra.audiofile
 Version: 1.0
 Summary: Audio Dexterity mediaelementjs player
-Home-page: http://svn.plone.org/svn/collective/
-Author: UNKNOWN
-Author-email: UNKNOWN
+Home-page: https://github.com/iskracat/Hitotsubashi-University/tree/master/buildout/src/iskra.audiofile
+Author: Iskra Desenvolupament SCCL
+Author-email: info@iskra.cat
 License: gpl
 Description: .. contents::
         
         Introduction
         ============
+        
+        iskra.audiofile is a plone egg that enables audio content using dexterity. 
+        
+        Features
+        ========
+        
+        * file type with mp3 and ogg options
+        * mediaelementjs player (HTML5 and fallback to flash)
+        * folder listing view to show the players and the image on a listing
+        * image field
+        
+        Credits
+        =======
+        
+        This product is developed by Iskra sponsored by Hitotsubashi University.
+        
+        Installation
+        ============
+        
+        Add to your egg section on buildout.cfg
+        
+          eggs = 
+            iskra.audiofile
         
         
         iskra.audiofile
@@ -19,6 +42,7 @@ Description: .. contents::
         ---
         
         * Create content type and views [ramon]
+Keywords: audio dexterity plone mediaelementjs
 Platform: UNKNOWN
 Classifier: Framework :: Plone
 Classifier: Programming Language :: Python
