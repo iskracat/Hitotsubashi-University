@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object meta_type="Plone Types Tool" name="portal_types">
+ <property name="title">Controls the available content types in your portal</property>
+ <object meta_type="Dexterity FTI" name="hitu.event.language" />
+ <object meta_type="Dexterity FTI" name="hitu.event.location" />
+ <object meta_type="Dexterity FTI" name="hitu.event.organizing" />
+ <object meta_type="Dexterity FTI" name="hitu.event.type" />
+ <object meta_type="Dexterity FTI" name="hitu.event" />
+ <!-- -*- extra stuff goes here -*- -->
+</object>
