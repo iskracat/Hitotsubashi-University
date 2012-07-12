@@ -17,6 +17,7 @@
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
+  <element value="plone.multilingualbehavior.interfaces.IDexterityTranslatable" />
  </property>
 
  <property name="default_view">view</property>
@@ -36,7 +37,7 @@
     visible="True">
   <permission value="View"/>
  </action>
- 
+
  <action title="Edit" action_id="edit" category="object" condition_expr=""
     icon_expr="" link_target="" url_expr="string:${object_url}/edit"
     visible="True">

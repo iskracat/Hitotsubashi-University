@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="hitu.event">
+<body>
+
+<metal:javascriptslot fill-slot="css_head_slot">
+  <script src="++resource++hitu.event/mediaelementplayer.min.css" type="text/javascript"/>
+</metal:javascriptslot>
+
+<metal:javascriptslot fill-slot="javascript_head_slot">
+  <script src="++resource++hitu.event/mediaelement-and-player.min.js" type="text/javascript"/>
+  <script>
+    $('audio').mediaelementplayer();
+  </script>
+</metal:javascriptslot>
+
+
+<metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core"
+                        tal:define="data view/data">
+
+        <div class="row">
+          <div class="cell width-9 position-0">
+            <h3 i18n:translate="Event Language">Event Language</h3>
+            <p tal:content="context/event_language/to_object/Title"> Language </p>
+            <h3 i18n:translate="Event Type">Event Type</h3>
+            <p tal:content="context/event_type/to_object/Title"> Conference </p>
+            <h3 i18n:translate="Organized by">Organized by</h3>
+            <tal:oganized repeat="organizer context/organized_by">
+            <p tal:content="organizer/to_object/Title"> Organized by </p>
+          </tal:oganized>
+            <h3 i18n:translate="Location">Location</h3>
+            <p tal:content="context/event_location/to_object/Title"> Location </p>
+          <tal:audiofile condition="context/audio_recording">
+          <audio controls autoplay>
+          <source src="" tal:attributes="src string:${context/absolute_url}/@@display-file/audio_recording" type="audio/mpeg"/>
+          <object width="300" height="40" type="application/x-shockwave-flash" data="++resource++hitu.event/flashmediaelement.swf" tal:define="audiof context/audio_recording">
+            <param name="movie" value="++resource++hitu.event/flashmediaelement.swf" />
+            <param name="flashvars" value="" tal:attributes="value string:controls=true&file=${context/absolute_url}/@@download/audio_recording/${audiof/filename}" />
+          </object>
+
+        </audio>
+      </tal:audiofile>
+
+          </div>
+
+        <div class="cell width-5 position-10 vcard">
+            <table class="vertical listing"
+              summary="Event details"
+              i18n:attributes="summary summary_event_details;">
+
+                <tbody>
+
+                    <tr tal:condition="data/subjects">
+                        <th i18n:translate="event_what">What</th>
+                        <td>
+                          <ul>
+                            <li tal:repeat="item data/subjects"
+                                tal:content="item" />
+                          </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th i18n:translate="event_when">When</th>
+                        <td tal:define="date_dict view/date_for_display">
+                          <metal:macro define-macro="event_occurrence">
+                            <tal:differentday tal:condition="not:date_dict/same_day"
+                                              i18n:translate="event_when_differentday">
+                                <abbr i18n:name="startdate"
+                                      id="parent-fieldname-startDate"
+                                      tal:attributes="title date_dict/start_iso">
+                                      <span metal:define-slot="inside"
+                                            class="explain">
+                                        <span tal:replace="date_dict/start_date">Start Date</span>
+                                        <tal:notwholeday condition="not:data/whole_day">
+                                          <tal:word i18n:translate="event_when_differentday_optional_word_between_date_and_time" />
+                                          <span tal:replace="date_dict/start_time">Start Time</span>
+                                        </tal:notwholeday>
+                                      </span>
+                                </abbr>
+                                to
+                                <abbr i18n:name="enddate"
+                                      id="parent-fieldname-endDate"
+                                      tal:attributes="title date_dict/end_iso">
+                                      <span metal:define-slot="inside"
+                                            class="explain">
+                                        <span tal:replace="date_dict/end_date">End Date</span>
+                                        <tal:notwholeday condition="not:data/whole_day">
+                                          <tal:word i18n:translate="event_when_differentday_optional_word_between_date_and_time" />
+                                          <span tal:replace="date_dict/end_time">End Time</span>
+                                        </tal:notwholeday>
+                                      </span>
+                                </abbr>
+                            </tal:differentday>
+
+                            <tal:sameday tal:condition="date_dict/same_day">
+                              <tal:wholeday condition="data/whole_day">
+                                <span tal:replace="date_dict/start_date"
+                                      i18n:translate="" />
+                              </tal:wholeday>
+                              <tal:notwholeday condition="not:data/whole_day"
+                                  i18n:translate="event_when_sameday">
+                                <span tal:replace="date_dict/start_date"
+                                      i18n:name="date">
+                                    Start Date Time</span>
+                                from
+                                <abbr id="parent-fieldname-startDate"
+                                    tal:attributes="title date_dict/start_iso"
+                                     i18n:name="starttime">
+                                     <span metal:define-slot="inside"
+                                         class="explain"
+                                         tal:content="date_dict/start_time">Start Time</span>
+                                </abbr> to
+                                <abbr id="parent-fieldname-endDate"
+                                    tal:attributes="title date_dict/end_iso"
+                                    i18n:name="endtime">
+                                    <span metal:define-slot="inside"
+                                        class="explain"
+                                        tal:content="date_dict/end_time">End Time</span>
+                                </abbr>
+                              </tal:notwholeday>
+                            </tal:sameday>
+                          </metal:macro>
+                         
+                        </td>
+                    </tr>
+                    <tr tal:condition="data/location">
+                        <th i18n:translate="event_where">Where</th>
+                        <td class="location" tal:content="data/location">
+                          location
+                        </td>
+                    </tr>
+                    <tr tal:define="contact_email data/contact_email;
+                                    contact_name data/contact_name;"
+                        tal:condition="python:contact_name or contact_email">
+                        <th i18n:translate="contact_name">Contact Name</th>
+                        <td>
+                            <a id="parent-fieldname-contactEmail"
+                               tal:condition="contact_email"
+                               tal:replace="structure python: context.spamProtect(mailaddress=contact_email, mailname=contact_name, cssclass='email fn')"
+                               />
+                            <span class="fn"
+                                  tal:condition="not: contact_email"
+                                  tal:content="contact_name" />
+                        </td>
+                    </tr>
+                    <tr tal:condition="data/contact_phone">
+                        <th i18n:translate="contact_phone">Contact Phone</th>
+                        <td class="tel" tal:content="data/contact_phone">
+                            Contact Phone
+                        </td>
+                    </tr>
+                    <tr tal:condition="data/attendees|nothing">
+                        <th i18n:translate="contact_attendees">Attendees</th>
+                        <td class="attendees">
+                          <ul>
+                            <li tal:repeat="item data/attendees"
+                                tal:content="item" />
+                          </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th i18n:translate="heading_add_to_calendar">Add event to calendar</th>
+                        <td tal:define="here_url context/@@plone_context_state/object_url;
+                                        portal context/@@plone_portal_state/portal;">
+                            <a href="#"
+                               tal:attributes="href string:$here_url/ics_view"
+                               title="Download this event in iCal format"
+                               i18n:attributes="title title_add_to_ical;">
+                                <img tal:replace="structure portal/icon_export_ical.png" src="" alt="" />
+                                <span i18n:translate="label_add_to_ical">iCal</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <tal:txt replace="structure data/text" />
+
+        <p tal:condition="data/event_url|nothing">
+            <a class="url"
+               href="event_url"
+               i18n:translate="event_more_information"
+               id="parent-fieldname-eventUrl"
+               tal:attributes="href data/event_url">
+               More information about this event&hellip;</a>
+        </p>
+
+        <span class="visualClear" />
+        </div>
+
+    </metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
